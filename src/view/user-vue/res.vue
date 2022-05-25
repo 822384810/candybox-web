@@ -1,0 +1,489 @@
+<template>
+    <amis :amisJson="amisJson"></amis>
+</template>
+<script setup lang="ts">
+import amis from "../../components/amis_reanderer.vue";
+
+
+let resEditJson=
+{
+    "body": [
+    {
+        "type": "input-text",
+        "name": "name",
+        "label": "名称",
+        "required": true,
+        "validations": {
+            "minLength": "1",
+            "maxLength": "100",
+        },
+    },
+    {
+        "type": "input-text",
+        "name": "tag",
+        "required": false,
+        "label": "标签",
+        "validations": {
+            "maxLength": "100",
+        },
+    },
+    {
+        "label": "类型",
+        "type": "select",
+        "name": "type",
+        "required": true,
+        "options": [
+            {
+                "label": "菜单",
+                "value": "1"
+            },
+            {
+                "label": "操作",
+                "value": "2"
+            },
+            {
+                "label": "数据",
+                "value": "3"
+            },
+            {
+                "label": "其他",
+                "value": "9"
+            },
+        ]
+    },
+    {
+        "type": "textarea",
+        "name": "descript",
+        "required": false,
+        "label": "描述",
+        "minRows": 8,
+        "validations": {
+            "maxLength": "2000",
+        },
+    },
+    // {
+    //     "type": "input-text",
+    //     "name": "parentId",
+    //     "label": "父id",
+    //     "text":"${IF(ISEMPTY(${resTree.id}), 0, ${resTree.id})}"
+    // },
+    {
+        "type": "hidden",
+        "name": "status",
+        "label": "数据状态",
+    }
+    ]
+}
+
+let amisJson = 
+{
+    "type": "page",
+    "title": "资源管理",
+    "asideResizor": true,
+    "asideMinWidth": 240,
+    "asideMaxWidth": 600,
+    "cssVars": {
+        "--Page-aside-width": "18rem"
+    },
+    "body": [
+        {
+            "type": "crud",
+            "name": "resInfoCrud",
+            "autoGenerateFilter": true,
+            // "draggable": true,
+            "keepItemSelectionOnPageChange": true,
+            "syncLocation": false,
+            "target": "resAside",
+            "api": {
+                "method":"post",
+                "url": "/api/core/cbdata/user_res/page?pageNo=${pageNo}&pageSize=${pageSize}",
+                // "dataType": "json",
+                // "sendOn": "this.deptId",
+                "data":{
+                    "parentId":"${resTree}",
+                    "status":"1",
+                    "orderAsc": "createTime",
+                    "like-right-name": "${name}",
+                    "like-right-tag": "${tag}",
+                }
+            },
+            "bulkActions": [
+            ],
+            "itemActions": [
+            ],
+            "features": [
+                "create",
+                "delete",
+                "view",
+                "update"
+            ],
+            "headerToolbar": [
+                {
+                    "label": "新增资源",
+                    "type": "button",
+                    "actionType": "dialog",
+                    "level": "primary",
+                    // "visibleOn": "this.resTree",
+                    "dialog": {
+                        "title": "新增",
+                        "size": "lg",
+                        "body": {
+                            "type": "form",
+                            "api": {
+                                "method":"post",
+                                "url":"/api/core/cbdata/user_res",
+                                "data":{
+                                    "name":"${name}",
+                                    "tag":"${tag}",
+                                    "descript":"${descript}",
+                                    "type":"${type}",
+                                    "parentId":"${IF(ISEMPTY(${resTree.id}), 0, ${resTree.id})}",
+                                },
+                                // "sendOn": "this.resTree",
+                            },
+                            "validateOnChange": true,
+                            "body": resEditJson.body,
+                        }
+                    }
+                },
+                "bulkActions"
+            ],
+            "perPage": 10,
+            "pageField": "pageNo",
+            "perPageField": "pageSize",
+            "columnsTogglable": "auto",
+            "mode": "table",
+            "columns": [
+                {
+                    "name": "index",
+                    "label": "序号",
+                    "type": "text",
+                    "align": "center",
+                    "width": 60,
+                    "text":"${(index+1)+(INT(pageNo)-1)*pageSize}"
+                    
+                },
+                {
+                    "name": "name",
+                    "label": "名称",
+                    "type": "text",
+                    "align": "center",
+                    "toggled": true,
+                    "searchable": {
+                        "type": "input-text",
+                        "name": "name",
+                        "label": "名称",
+                        "placeholder": ""
+                    }
+                },
+                {
+                    "type": "text",
+                    "label": "标签",
+                    "name": "tag",
+                   "align": "center",
+                    "searchable": {
+                        "type": "input-text",
+                        "name": "tag",
+                        "label": "标签",
+                        "placeholder": ""
+                    }
+                },
+                {
+                    "name": "type",
+                    "label": "类型",
+                    "type": "mapping",
+                    "map": {
+                        "1": "菜单",
+                        "2": "操作",
+                        "3": "数据",
+                        "9": "其他",
+                    },
+                   "align": "center",
+                },
+                {
+                    "type": "text",
+                    "label": "描述",
+                    "name": "descript",
+                    "align": "center",
+                },
+                {
+                    "type": "datetime",
+                    "label": "创建时间",
+                    "name": "createTime",
+                    "align": "center",
+                },
+                {
+                    "type": "operation",
+                    "label": "操作",
+                    "align": "center",
+                    "width": 200,
+                    "buttons": [
+                        {
+                            "type": "button",
+                            "label": "删除",
+                            "actionType": "ajax",
+                            "level": "link",
+                            "className": "text-danger",
+                            "confirmText": "确定要删除？",
+                            "api": "delete:/api/core/cbdata/user_res?id=$id"
+                            
+                        },
+                        {
+                            "label": "查看",
+                            "type": "button",
+                            "actionType": "dialog",
+                            "level": "link",
+                            "dialog": {
+                                "title": "查看详情",
+                                "body": {
+                                    "type": "form",
+                                    "body": [
+                                        {
+                                            "name": "name",
+                                            "label": "名称",
+                                            "type": "static", 
+                                        },
+                                        {
+                                            "type": "static",
+                                            "label": "标签",
+                                            "name": "tag",
+                                        },
+                                        {
+                                            "type": "control",
+                                            "label": "类型",
+                                            "name": "type",
+                                            "body": {
+                                                "type": "mapping",
+                                                "map": {
+                                                    "1": "菜单",
+                                                    "2": "操作",
+                                                    "3": "数据",
+                                                    "9": "其他",
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "static",
+                                            "label": "描述",
+                                            "name": "descript",
+                                           
+                                        },
+                                        {
+                                            "type": "static-datetime",
+                                            "label": "创建时间",
+                                            "name": "createTime",
+                                        },
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "label": "编辑",
+                            "type": "button",
+                            "actionType": "dialog",
+                            "level": "link",
+                            "dialog": {
+                                "title": "编辑",
+                                "body": {
+                                    "type": "form",
+                                    "api": "put:/api/core/cbdata/user_res?id=$id",
+                                    "body": resEditJson.body,
+                                }
+                            }
+                        },
+                        {
+                            "type": "button",
+                            "label": "授予角色",
+                            "level": "link",
+                            "actionType": "dialog",
+                            "dialog": {
+                                "title": "授予角色",
+                                "size": "lg",
+                                "actions": [
+                                {
+                                "type": "button",
+                                "actionType": "confirm",
+                                "label": "关闭",
+                                "primary": true
+                                }
+                                ],
+                                "body": [
+                                    {
+                                        "type": "crud",
+                                        "name": "roleInfoCrud",
+                                        "autoGenerateFilter": true,
+                                        // "draggable": true,
+                                        "keepItemSelectionOnPageChange": true,
+                                        "syncLocation": false,
+                                        "api": {
+                                            "method":"get",
+                                            "url": "/api/user/role/relation/res/page?pageNo=${pageNo}&pageSize=${pageSize}&resId=${id}",
+                                            "data":{
+                                                "roleName": "${roleName}",
+                                                "roleTag": "${roleTag}",
+                                            }
+                                        },                                        
+                                        "perPage": 10,
+                                        "pageField": "pageNo",
+                                        "perPageField": "pageSize",
+                                        "columnsTogglable": "auto",
+                                        "mode": "table",
+                                        "columns": [
+                                            {
+              
+                                                "name": "userRoleResRelCheck",
+                                                "label": "选择",
+                                                "type": "checkbox",
+                                                "className": "text-center",
+                                                "width": 60,
+                                                "onEvent": {
+                                                    "change": {
+                                                    "actions": [
+                                                    {
+                                                        "actionType": "ajax",
+                                                        "args": {
+                                                            "api": {
+                                                                "url": "/api/user/res/relation",
+                                                                "method": "post",
+                                                                "data":{
+                                                                    "resId": "${id}",
+                                                                    "roleId": "${roleId}",
+                                                                    "userRoleResRelCheck": "${userRoleResRelCheck}",
+                                                                }
+                                                            },
+                                                        }
+                                                    }
+                                                    ]
+                                                    }
+                                                }
+                                            },
+                                           
+                                            {
+                                                "name": "index",
+                                                "label": "序号",
+                                                "type": "text",
+                                                "className": "text-center",
+                                                "width": 60,
+                                                "text":"${(index+1)+(INT(pageNo)-1)*pageSize}"
+                                                
+                                            },
+                                            {
+                                                "name": "userId",
+                                                "label": "userId",
+                                                "text":"${id}",
+                                                "type": "text",
+                                                "hidden": true,
+                                                "className": "text-center",                                               
+                                            },
+                                            {
+                                                "name": "roleId",
+                                                "label": "roleId",
+                                                "type": "text",
+                                                "hidden": true,
+                                                "className": "text-center",                                               
+                                            },
+                                            {
+                                                "name": "userRoleRelId",
+                                                "label": "userRoleRelId",
+                                                "type": "text",
+                                                "hidden": true,
+                                                "className": "text-center",                                               
+                                            },
+                                            {
+                                                "name": "roleName",
+                                                "label": "名称",
+                                                "type": "text",
+                                                "className": "text-center",
+                                                "toggled": true,
+                                                "searchable": {
+                                                    "type": "input-text",
+                                                    "name": "roleName",
+                                                    "label": "名称",
+                                                    "placeholder": ""
+                                                }
+                                            },
+
+                                            {
+                                                "type": "text",
+                                                "label": "标签",
+                                                "name": "roleTag",
+                                                "className": "text-center",
+                                                "searchable": {
+                                                    "type": "input-text",
+                                                    "name": "roleTag",
+                                                    "label": "标签",
+                                                    "placeholder": ""
+                                                }
+                                            },
+                                            {
+                                                "type": "datetime",
+                                                "label": "授予时间",
+                                                "name": "userRoleRelCreateTime",
+                                                "className": "text-center"
+                                            },
+
+                                        ],
+                                    }
+                                ],
+                                                            
+                                
+                            }
+                        },
+                    ]
+                }
+            ],
+        }
+    ],
+    "aside": 
+    {
+        "type": "form",
+        "wrapWithPanel": false,
+        "target": "resInfoCrud",
+        "name":"resAside",
+        // "submitOnInit": true,
+        "className": "asideClass text-md h-screen",
+        "body": [
+        {
+        "type": "grid",
+        "columns": [
+        {
+            "type": "wrapper",
+            "body": "菜单资源",
+            "className": "text-lg",
+        },
+        {
+            "type": "button",
+            "actionType": "reload",
+            "label": "刷新菜单",
+            "primary": true,
+            "target": "resTree",
+            "className":"m-3"
+        },
+        ]
+        },
+        {
+            "type": "input-tree",
+            "stacked": true,
+            "debug": true,
+            "level": "debug",
+            "name": "resTree",
+            "inputClassName": "no-border",
+            // "label": "菜单资源",
+            "rootCreateTip": "增加一级菜单资源",
+            "labelField": "name",
+            "valueField": "id",
+            "creatable": false,
+            "removable": false,
+            "editable": false,
+            "initiallyOpen": true,
+            "submitOnChange": true,
+            "source": "get:/api/user/res/tree/user/all",
+        }]
+    }
+}
+</script>
+<style type="css/text">
+/* .cxd-Page-aside{
+    width: 300px;
+} */
+</style>

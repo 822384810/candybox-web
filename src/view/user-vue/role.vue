@@ -1,0 +1,211 @@
+<template>
+    <amis :amisJson="amisJson"></amis>
+</template>
+<script setup lang="ts">
+import amis from "../../components/amis_reanderer.vue";
+let roleEditJson=
+{
+    "body": [
+    {
+        "type": "input-text",
+        "name": "name",
+        "label": "名称",
+        "required": true,
+        "validations": {
+            "minLength": "1",
+            "maxLength": "50",
+        }
+    },
+    {
+        "type": "input-text",
+        "name": "tag",
+        "required": false,
+        "label": "标签",
+        "validations": {
+            "maxLength": "50",
+        },
+
+    },
+    {
+        "type": "hidden",
+        "name": "status",
+        "label": "数据状态",
+        "required": false,
+    },
+    ]
+}
+
+
+let amisJson = 
+{
+    "type": "page",
+    "title": "角色管理",
+
+    "body": [
+        {
+            "type": "crud",
+            "name": "roleInfoCrud",
+            "autoGenerateFilter": true,
+            // "draggable": true,
+            "keepItemSelectionOnPageChange": true,
+            "syncLocation": false,
+            "api": {
+                "method":"post",
+                "url": "/api/core/cbdata/user_role/page?pageNo=${pageNo}&pageSize=${pageSize}",
+                "data":{
+                    "status":"1",
+                    "orderAsc": "createTime",
+                    "like-right-name": "${name}",
+                    "like-right-tag": "${tag}",
+                }
+            },
+            "bulkActions": [
+            ],
+            "itemActions": [
+            ],
+            "features": [
+                "create",
+                "delete",
+                "view",
+                "update"
+            ],
+            "headerToolbar": [
+                {
+                    "label": "新增角色",
+                    "type": "button",
+                    "actionType": "dialog",
+                    "level": "primary",
+                    "dialog": {
+                        "title": "新增",
+                        "body": {
+                            "type": "form",
+                            "api": {
+                                "method":"post",
+                                "url":"/api/core/cbdata/user_role",
+                            },
+                            "validateOnChange": true,
+                            "body": roleEditJson.body,
+                        }
+                    }
+                },
+                "bulkActions"
+            ],
+            "perPage": 10,
+            "pageField": "pageNo",
+            "perPageField": "pageSize",
+            "columnsTogglable": "auto",
+            "mode": "table",
+            "columns": [
+                {
+                    "name": "index",
+                    "label": "序号",
+                    "type": "text",
+                    "align": "center",
+                    "width": 60,
+                    "text":"${(index+1)+(INT(pageNo)-1)*pageSize}"
+                    
+                },
+                {
+                    "name": "name",
+                    "label": "名称",
+                    "type": "text",
+                    "align": "center",
+                    "toggled": true,
+                    "searchable": {
+                        "type": "input-text",
+                        "name": "name",
+                        "label": "名称",
+                        "placeholder": ""
+                    }
+                },
+
+                {
+                    "type": "text",
+                    "label": "标签",
+                    "name": "tag",
+                    "align": "center",
+                    "searchable": {
+                        "type": "input-text",
+                        "name": "tag",
+                        "label": "标签",
+                        "placeholder": ""
+                    }
+                },
+                {
+                    "type": "datetime",
+                    "label": "创建时间",
+                    "name": "createTime",
+                    "align": "center",
+                },
+                {
+                    "type": "operation",
+                    "label": "操作",
+                    "align": "center",
+                    "width": 110,
+                    "buttons": [
+                        {
+                            "type": "button",
+                            "label": "删除",
+                            "actionType": "ajax",
+                            "level": "link",
+                            "className": "text-danger",
+                            "confirmText": "确定要删除？",
+                            "api": "delete:/api/core/cbdata/user_role?id=$id"
+                            
+                        },
+                        {
+                            "label": "查看",
+                            "type": "button",
+                            "actionType": "dialog",
+                            "level": "link",
+                            "dialog": {
+                                "title": "查看详情",
+                                "body": {
+                                    "type": "form",
+                                    // "api": "xxx/update",
+                                    "body": [
+                                        {
+                                            "name": "name",
+                                            "label": "姓名",
+                                            "type": "static", 
+                                        },
+                                        {
+                                            "type": "static",
+                                            "label": "标签",
+                                            "name": "tag",
+                                        },
+                                        {
+                                            "type": "static-datetime",
+                                            "label": "创建时间",
+                                            "name": "createTime",
+                                        },
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "label": "编辑",
+                            "type": "button",
+                            "actionType": "dialog",
+                            "level": "link",
+                            "dialog": {
+                                "title": "编辑",
+                                "body": {
+                                    "type": "form",
+                                    "api": "put:/api/core/cbdata/user_role?id=$id",
+                                    "body": roleEditJson.body,
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+
+
+        }
+    ],
+
+}
+
+
+</script>
