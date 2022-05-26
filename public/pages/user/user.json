@@ -606,6 +606,58 @@
             "editable": true,
             "initiallyOpen": true,
             "submitOnChange": true,
+            "addControls": [
+                {
+                    "type": "input-text",
+                    "name": "name",
+                    "label": "单位名称",
+                    "required": true,
+                    "validations": {
+                        "minLength": "1",
+                        "maxLength": "100"
+                    }
+                },
+                {
+                    "type": "input-text",
+                    "name": "shortName",
+                    "required": false,
+                    "label": "单位简称",
+                    "validations": {
+                        "maxLength": "100"
+                    }
+                },
+                {
+                    "type": "hidden",
+                    "name": "parentId",
+                    "label": "父id"
+                }
+            ],
+            "editControls": [
+                {
+                    "type": "input-text",
+                    "name": "name",
+                    "label": "单位名称",
+                    "required": true,
+                    "validations": {
+                        "minLength": "1",
+                        "maxLength": "100"
+                    }
+                },
+                {
+                    "type": "input-text",
+                    "name": "shortName",
+                    "required": false,
+                    "label": "单位简称",
+                    "validations": {
+                        "maxLength": "100"
+                    }
+                },
+                {
+                    "type": "hidden",
+                    "name": "parentId",
+                    "label": "父id"
+                }
+            ],
             "addApi":{ 
                 "method": "POST",
                 "url": "/api/core/cbdata/user_dept",
