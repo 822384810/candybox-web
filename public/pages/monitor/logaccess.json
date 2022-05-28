@@ -1,0 +1,98 @@
+{
+    "type": "page",
+    "title": "访问日志",
+    "body": [
+        {
+            "type": "crud",
+            "name": "loginLogCrud",
+            "autoGenerateFilter": true,
+            "keepItemSelectionOnPageChange": true,
+            "syncLocation": false,
+            "api": {
+                "method":"post",
+                "url": "/api/core/cbdata/log_access/page?pageNo=${pageNo}&pageSize=${pageSize}",
+                "data":{
+                    "orderDesc": "createTime",
+                    "like-right-createUserName": "${createUserName}",
+                    "like-right-createTime": "${createTime}"
+                }
+            },
+            "perPage": 10,
+            "pageField": "pageNo",
+            "perPageField": "pageSize",
+            "columnsTogglable": "auto",
+            "mode": "table",
+            "columns": [
+                {
+                    "name": "index",
+                    "label": "序号",
+                    "type": "text",
+                    "align": "center",
+                    "width": 60,
+                    "text":"${(index+1)+(INT(pageNo)-1)*pageSize}"
+                    
+                },
+                {
+                    "type": "text",
+                    "label": "操作员",
+                    "name": "createUserName",
+                    "align": "center",
+                    "searchable": {
+                        "type": "input-text",
+                        "name": "createUserName",
+                        "label": "操作员",
+                        "placeholder": ""
+                    }
+                },
+                {
+                    "name": "createDeptName",
+                    "label": "操作单位名称",
+                    "type": "text",
+                    "align": "center"
+                },
+                {
+                    "name": "className",
+                    "label": "操作类",
+                    "type": "text",
+                    "align": "center",
+                    "toggled": false
+                },
+                {
+                    "name": "methodName",
+                    "label": "操作方法",
+                    "type": "text",
+                    "align": "center"
+                },
+                {
+                    "name": "url",
+                    "label": "url",
+                    "type": "text",
+                    "width":"300px",
+                    "align": "center"
+                },
+                {
+                    "name": "useTime",
+                    "label": "运行时间（ms）",
+                    "type": "text",
+                    "width":"100px",
+                    "align": "center"
+                },
+                {
+                    "type": "datetime",
+                    "label": "操作时间",
+                    "name": "createTime",
+                    "align": "center",
+                    "width": "150px",
+                    "searchable": {
+                        "type": "input-date",
+                        "name": "createTime",
+                        "label": "操作时间",
+                        "value": "today",
+                        "placeholder": "",
+                        "format": "YYYY-MM-DD"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -80,53 +80,8 @@ let amisJson =
         ]
     },
     "footer": "<div class=\"p-2 text-center bg-light\">Copyright © 2022 - 2022  <a href=\"https://github.com/822384810\" target=\"_blank\" class=\"link-secondary\">CandyBox</a>. All rights reserved. <a target=\"_blank\" href=\"https://github.com/822384810\" class=\"link-secondary\" rel=\"noopener\">v0.1.0</a></div> ",
-    "pages":
-    [
-        {
-            "children":
-            [
-                {
-                    "label": "首页",
-                    "icon": "fa fa-home",
-                    "url": "/user/user",
-                    "schemaApi":"get:/pages/user/user.json",
-                    "isDefaultPage": "True",
-                },
-                {
-                    "label": "用户中心",
-                    "icon": "fa fa-lock",
-                    "children":
-                    [
-                        {
-                            "label": "用户管理",
-                            "icon": "fa fa-user",
-                            "url": "/user/user",
-                            "schemaApi":"get:/pages/user/user.json"
-                            
-                        },
-                        {
-                            "label": "角色管理",
-                            "icon": "fa fa-group",
-                            "url": "/user/role",
-                            "schemaApi":"get:/pages/user/role.json"
-                        },
-                        {
-                            "label": "资源管理",
-                            "icon": "fa fa-group",
-                            "url": "/user/res",
-                            "schemaApi":"get:/pages/user/res.json",
-                        },
-
-                    ],
-                    "sort": 99
-                }
-            ]
-        }
-    ]
+    "api":"get:/api/user/res/menu/user/all"
 }
-
-
- 
 
 </script>
 

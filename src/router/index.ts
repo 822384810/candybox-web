@@ -19,9 +19,11 @@ const routes = [
         path: '/index', 
         component: index,
         children:[
-            { path: '/user/user', component: blank },
-            { path: '/user/role', component: blank },
-            { path: '/user/res', component: blank },
+            // { path: '/user/user', component: blank },
+            // { path: '/user/role', component: blank },
+            // { path: '/user/res', component: blank },
+            // { path: '/user/oauth', component: blank },
+            { path: '/page/:id', component: blank}
         ]
     },
     // { path: '/user/user', component: user_user },
@@ -39,6 +41,7 @@ const router = createRouter({
     routes, // `routes: routes` 的缩写
     
 })
+
 
 export default router
 

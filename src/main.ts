@@ -21,6 +21,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 //amis
 import 'amis/sdk/sdk.js';
 import 'amis/lib/themes/default.css';
+import 'amis/sdk/sdk.css';
 
 import router from "./router/index"
 

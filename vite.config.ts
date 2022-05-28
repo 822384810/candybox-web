@@ -66,17 +66,26 @@ export default defineConfig({
     proxy: {
 
       // with options
-      '/api/': {
-        target: 'http://127.0.0.1:8012/',
-        changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/api/, '')
-      },
       '/amis/': {
         target: 'https://aisuda.bce.baidu.com/',
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, '')
       },
-      
+      '/api/': {
+        target: 'http://127.0.0.1:8012/',
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, '')
+      },
+      '/swagger': {
+        target: 'http://127.0.0.1:8012/',
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, '')
+      },
+      '/v3/': {
+        target: 'http://127.0.0.1:8012/',
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, '')
+      }
     }
   }
 

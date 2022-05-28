@@ -586,7 +586,7 @@
         "wrapWithPanel": false,
         "target": "userInfoCrud",
         "name":"deptAside",
-        "className": "asideClass text-md h-screen",
+        "className": "asideClass text-md h-full",
         "body": [
         {
             "type": "wrapper",
@@ -598,7 +598,7 @@
             "debug": true,
             "level": "debug",
             "name": "deptTree",
-            "inputClassName": "no-border",
+            "inputClassName": "no-border h-full",
             "rootCreateTip": "增加一级组织机构",
             "labelField": "name",
             "creatable": true,
@@ -606,6 +606,7 @@
             "editable": true,
             "initiallyOpen": true,
             "submitOnChange": true,
+            "className": "h-full",
             "addControls": [
                 {
                     "type": "input-text",

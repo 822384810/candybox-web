@@ -21,7 +21,7 @@
                 "data":{
                     "parentId":"${resTree}",
                     "status":"1",
-                    "orderAsc": "createTime",
+                    "orderAsc": "sort",
                     "like-right-name": "${name}",
                     "like-right-tag": "${tag}"
                 }
@@ -55,7 +55,9 @@
                                     "tag":"${tag}",
                                     "descript":"${descript}",
                                     "type":"${type}",
-                                    "parentId":"${IF(ISEMPTY(${resTree.id}), 0, ${resTree.id})}"
+                                    "parentId":"${IF(ISEMPTY(${resTree}), 0, ${resTree})}",
+                                    "apiUrl":"${apiUrl}",
+                                    "sort":"${sort}"
                                 }
                             },
                             "validateOnChange": true,
@@ -98,6 +100,10 @@
                                             "value": "3"
                                         },
                                         {
+                                            "label": "接口",
+                                            "value": "4"
+                                        },
+                                        {
                                             "label": "其他",
                                             "value": "9"
                                         }
@@ -112,6 +118,22 @@
                                     "validations": {
                                         "maxLength": "2000"
                                     }
+                                },
+                                {
+                                    "type": "input-text",
+                                    "name": "apiUrl",
+                                    "required": false,
+                                    "label": "接口地址",
+                                    "validations": {
+                                        "maxLength": "100"
+                                    }
+                                },
+                                {
+                                    "type": "input-text",
+                                    "name": "sort",
+                                    "required": false,
+                                    "label": "排序",
+                                    "validations": "isInt"
                                 },
                                 {
                                     "type": "hidden",
@@ -183,6 +205,18 @@
                     "align": "center"
                 },
                 {
+                    "type": "static",
+                    "label": "api接口",
+                    "name": "apiUrl"
+                   
+                },
+                {
+                    "type": "static",
+                    "label": "排序",
+                    "name": "sort"
+                   
+                },
+                {
                     "type": "datetime",
                     "label": "创建时间",
                     "name": "createTime",
@@ -234,6 +268,7 @@
                                                     "1": "菜单",
                                                     "2": "操作",
                                                     "3": "数据",
+                                                    "4": "接口",
                                                     "9": "其他"
                                                 }
                                             }
@@ -242,6 +277,18 @@
                                             "type": "static",
                                             "label": "描述",
                                             "name": "descript"
+                                           
+                                        },
+                                        {
+                                            "type": "static",
+                                            "label": "api接口",
+                                            "name": "apiUrl"
+                                           
+                                        },
+                                        {
+                                            "type": "static",
+                                            "label": "排序",
+                                            "name": "sort"
                                            
                                         },
                                         {
@@ -302,6 +349,10 @@
                                                     "value": "3"
                                                 },
                                                 {
+                                                    "label": "接口",
+                                                    "value": "4"
+                                                },
+                                                {
                                                     "label": "其他",
                                                     "value": "9"
                                                 }
@@ -316,6 +367,22 @@
                                             "validations": {
                                                 "maxLength": "2000"
                                             }
+                                        },
+                                        {
+                                            "type": "input-text",
+                                            "name": "apiUrl",
+                                            "required": false,
+                                            "label": "接口地址",
+                                            "validations": {
+                                                "maxLength": "100"
+                                            }
+                                        },
+                                        {
+                                            "type": "input-text",
+                                            "name": "sort",
+                                            "required": false,
+                                            "label": "排序",
+                                            "validations": "isInt"
                                         },
                                         {
                                             "type": "hidden",
@@ -471,7 +538,7 @@
         "wrapWithPanel": false,
         "target": "resInfoCrud",
         "name":"resAside",
-        "className": "asideClass text-md h-screen",
+        "className": "asideClass text-md h-full",
         "body": [
         {
         "type": "grid",
@@ -497,7 +564,7 @@
             "debug": true,
             "level": "debug",
             "name": "resTree",
-            "inputClassName": "no-border",
+            "inputClassName": "no-border h-full",
             "rootCreateTip": "增加一级菜单资源",
             "labelField": "name",
             "valueField": "id",
@@ -506,7 +573,8 @@
             "editable": false,
             "initiallyOpen": true,
             "submitOnChange": true,
-            "source": "get:/api/user/res/tree/user/all"
+            "source": "get:/api/user/res/tree/all",
+            "className": "h-full"
         }]
     }
 }
