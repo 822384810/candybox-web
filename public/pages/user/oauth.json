@@ -127,7 +127,7 @@
                     "type": "operation",
                     "label": "操作",
                     "align": "center",
-                    "width": 110,
+                    "width": 150,
                     "buttons": [
                         {
                             "type": "button",
@@ -138,6 +138,178 @@
                             "confirmText": "确定要删除？",
                             "api": "delete:/api/core/cbdata/oauth_client?id=$id"
                             
+                        },
+                        {
+                            "label": "编辑",
+                            "type": "button",
+                            "actionType": "dialog",
+                            "level": "link",
+                            "dialog": {
+                                "title": "编辑",
+                                "body": {
+                                    "type": "form",
+                                    "api": "put:/api/core/cbdata/oauth_client?id=$id",
+                                    "body": [
+                                        {
+                                            "type": "input-text",
+                                            "name": "clientName",
+                                            "label": "名称",
+                                            "required": true,
+                                            "validations": {
+                                                "minLength": "1",
+                                                "maxLength": "50"
+                                            }
+                                        },
+                                        {
+                                            "type": "input-text",
+                                            "name": "scopes",
+                                            "required": false,
+                                            "label": "授权范围",
+                                            "validations": {
+                                                "maxLength": "200"
+                                            },
+                                            "placeholder": "多个用英文逗号分隔"
+                                    
+                                        }
+                                    ]
+                                }
+                            }
+                        },                        
+                        {
+                            "type": "button",
+                            "label": "授予角色",
+                            "level": "link",
+                            "actionType": "dialog",
+                            "dialog": {
+                                "title": "授予角色",
+                                "size": "lg",
+                                "actions": [
+                                {
+                                "type": "button",
+                                "actionType": "confirm",
+                                "label": "关闭",
+                                "primary": true
+                                }
+                                ],
+
+                                "body": [
+                                    {
+                                        "type": "crud",
+                                        "name": "roleInfoCrud",
+                                        "autoGenerateFilter": true,
+                                        "keepItemSelectionOnPageChange": true,
+                                        "syncLocation": false,
+                                        "api": {
+                                            "method":"get",
+                                            "url": "/api/user/role/relation/user/page?pageNo=${pageNo}&pageSize=${pageSize}&userId=${id}",
+                                            "data":{
+                                                "roleName": "${roleName}",
+                                                "roleTag": "${roleTag}"
+                                            }
+                                        },                                        
+                                        "perPage": 10,
+                                        "pageField": "pageNo",
+                                        "perPageField": "pageSize",
+                                        "columnsTogglable": "auto",
+                                        "mode": "table",
+                                        "columns": [
+                                            {
+              
+                                                "name": "userRoleRelCheck",
+                                                "label": "选择",
+                                                "type": "checkbox",
+                                                "className": "text-center",
+                                                "width": 60,
+                                                "onEvent": {
+                                                    "change": {
+                                                    "actions": [
+                                                    {
+                                                        "actionType": "ajax",
+                                                        "args": {
+                                                            "api": {
+                                                                "url": "/api/user/role/relation",
+                                                                "method": "post",
+                                                                "data":{
+                                                                    "userId": "${id}",
+                                                                    "roleId": "${roleId}",
+                                                                    "userRoleRelCheck": "${userRoleRelCheck}"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    ]
+                                                    }
+                                                }
+                                            },
+                                           
+                                            {
+                                                "name": "index",
+                                                "label": "序号",
+                                                "type": "text",
+                                                "className": "text-center",
+                                                "width": 60,
+                                                "text":"${(index+1)+(INT(pageNo)-1)*pageSize}"
+                                                
+                                            },
+                                            {
+                                                "name": "userId",
+                                                "label": "userId",
+                                                "text":"${id}",
+                                                "type": "text",
+                                                "hidden": true,
+                                                "className": "text-center"                                             
+                                            },
+                                            {
+                                                "name": "roleId",
+                                                "label": "roleId",
+                                                "type": "text",
+                                                "hidden": true,
+                                                "className": "text-center"                                            
+                                            },
+                                            {
+                                                "name": "userRoleRelId",
+                                                "label": "userRoleRelId",
+                                                "type": "text",
+                                                "hidden": true,
+                                                "className": "text-center"                                             
+                                            },
+                                            {
+                                                "name": "roleName",
+                                                "label": "名称",
+                                                "type": "text",
+                                                "className": "text-center",
+                                                "toggled": true,
+                                                "searchable": {
+                                                    "type": "input-text",
+                                                    "name": "roleName",
+                                                    "label": "名称",
+                                                    "placeholder": ""
+                                                }
+                                            },
+
+                                            {
+                                                "type": "text",
+                                                "label": "标签",
+                                                "name": "roleTag",
+                                                "className": "text-center",
+                                                "searchable": {
+                                                    "type": "input-text",
+                                                    "name": "roleTag",
+                                                    "label": "标签",
+                                                    "placeholder": ""
+                                                }
+                                            },
+                                            {
+                                                "type": "datetime",
+                                                "label": "授予时间",
+                                                "name": "userRoleRelCreateTime",
+                                                "className": "text-center"
+                                            }
+
+                                        ]
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }

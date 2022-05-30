@@ -71,6 +71,13 @@
                     "align": "center"
                 },
                 {
+                    "name": "optIp",
+                    "label": "操作IP",
+                    "type": "text",
+                    "align": "center",
+                    "toggled": false
+                },
+                {
                     "name": "useTime",
                     "label": "运行时间（ms）",
                     "type": "text",

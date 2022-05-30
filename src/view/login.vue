@@ -10,6 +10,7 @@ let amisJson =
 {
     "type": "page",
     "title": "用户登录",
+    "initApi":"delete:/api/user/token",
     "body":
     [
         {
