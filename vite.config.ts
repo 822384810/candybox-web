@@ -71,21 +71,26 @@ export default defineConfig({
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, '')
       },
-      '/api/': {
-        target: 'http://127.0.0.1:8001/',
-        changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/api/, '')
-      },
-      '/swagger': {
+      '/user/': {
         target: 'http://127.0.0.1:8012/',
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, '')
       },
-      '/v3/': {
-        target: 'http://127.0.0.1:8012/',
+      '/form/': {
+        target: 'http://127.0.0.1:8013/',
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, '')
-      }
+      },
+      // '/docs_user/': {
+      //   target: 'http://127.0.0.1:8012/',
+      //   changeOrigin: true,
+      //   rewrite: (path) => path.replace(/^\/docs_user/, '')
+      // },
+      // '/docs_form/': {
+      //   target: 'http://127.0.0.1:8013/',
+      //   changeOrigin: true,
+      //   rewrite: (path) => path.replace(/^\/docs_form/, '')
+      // },
     }
   }
 
