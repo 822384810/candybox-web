@@ -10,7 +10,7 @@
             "syncLocation": false,
             "api": {
                 "method":"post",
-                "url": "/api/core/cbdata/user_role/page?pageNo=${pageNo}&pageSize=${pageSize}",
+                "url": "/user/api/core/cbdata/user_role/page?page=${page}&perPage=${perPage}",
                 "data":{
                     "status":"1",
                     "orderAsc": "createTime",
@@ -40,7 +40,7 @@
                             "type": "form",
                             "api": {
                                 "method":"post",
-                                "url":"/api/core/cbdata/user_role"
+                                "url":"/user/api/core/cbdata/user_role"
                             },
                             "validateOnChange": true,
                             "body": [
@@ -77,8 +77,6 @@
                 "bulkActions"
             ],
             "perPage": 10,
-            "pageField": "pageNo",
-            "perPageField": "pageSize",
             "columnsTogglable": "auto",
             "mode": "table",
             "columns": [
@@ -88,7 +86,7 @@
                     "type": "text",
                     "align": "center",
                     "width": 60,
-                    "text":"${(index+1)+(INT(pageNo)-1)*pageSize}"
+                    "text":"${(index+1)+(INT(page)-1)*perPage}"
                     
                 },
                 {
@@ -136,7 +134,7 @@
                             "level": "link",
                             "className": "text-danger",
                             "confirmText": "确定要删除？",
-                            "api": "delete:/api/core/cbdata/user_role?id=$id"
+                            "api": "delete:/user/api/core/cbdata/user_role?id=$id"
                             
                         },
                         {
@@ -177,7 +175,7 @@
                                 "title": "编辑",
                                 "body": {
                                     "type": "form",
-                                    "api": "put:/api/core/cbdata/user_role?id=$id",
+                                    "api": "put:/user/api/core/cbdata/user_role?id=$id",
                                     "body": [
                                         {
                                             "type": "input-text",

@@ -22,6 +22,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'amis/sdk/sdk.js';
 import 'amis/lib/themes/default.css';
 import 'amis/sdk/sdk.css';
+// import 'monaco-editor/min/vs/loader.js'
 
 import router from "./router/index"
 

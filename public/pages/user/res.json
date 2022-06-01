@@ -17,7 +17,7 @@
             "target": "resAside",
             "api": {
                 "method":"post",
-                "url": "/api/core/cbdata/user_res/page?pageNo=${pageNo}&pageSize=${pageSize}",
+                "url": "/user/api/core/cbdata/user_res/page?page=${page}&perPage=${perPage}",
                 "data":{
                     "parentId":"${resTree}",
                     "status":"1",
@@ -49,7 +49,7 @@
                             "type": "form",
                             "api": {
                                 "method":"post",
-                                "url":"/api/core/cbdata/user_res",
+                                "url":"/user/api/core/cbdata/user_res",
                                 "data":{
                                     "name":"${name}",
                                     "tag":"${tag}",
@@ -147,8 +147,6 @@
                 "bulkActions"
             ],
             "perPage": 10,
-            "pageField": "pageNo",
-            "perPageField": "pageSize",
             "columnsTogglable": "auto",
             "mode": "table",
             "columns": [
@@ -158,7 +156,7 @@
                     "type": "text",
                     "align": "center",
                     "width": 60,
-                    "text":"${(index+1)+(INT(pageNo)-1)*pageSize}"
+                    "text":"${(index+1)+(INT(page)-1)*perPage}"
                     
                 },
                 {
@@ -236,7 +234,7 @@
                             "level": "link",
                             "className": "text-danger",
                             "confirmText": "确定要删除？",
-                            "api": "delete:/api/core/cbdata/user_res?id=$id"
+                            "api": "delete:/user/api/core/cbdata/user_res?id=$id"
                             
                         },
                         {
@@ -310,7 +308,7 @@
                                 "title": "编辑",
                                 "body": {
                                     "type": "form",
-                                    "api": "put:/api/core/cbdata/user_res?id=$id",
+                                    "api": "put:/user/api/core/cbdata/user_res?id=$id",
                                     "body": [
                                         {
                                             "type": "input-text",
@@ -389,6 +387,11 @@
                                             "type": "hidden",
                                             "name": "status",
                                             "label": "数据状态"
+                                        },
+                                        {
+                                            "type": "hidden",
+                                            "name": "parentId",
+                                            "label": "数据状态"
                                         }
                                     ]
                                 }
@@ -419,15 +422,13 @@
                                         "syncLocation": false,
                                         "api": {
                                             "method":"get",
-                                            "url": "/api/user/role/relation/res/page?pageNo=${pageNo}&pageSize=${pageSize}&resId=${id}",
+                                            "url": "/user/api/user/role/relation/res/page?page=${page}&perPage=${perPage}&resId=${id}",
                                             "data":{
                                                 "roleName": "${roleName}",
                                                 "roleTag": "${roleTag}"
                                             }
                                         },                                        
                                         "perPage": 10,
-                                        "pageField": "pageNo",
-                                        "perPageField": "pageSize",
                                         "columnsTogglable": "auto",
                                         "mode": "table",
                                         "columns": [
@@ -445,7 +446,7 @@
                                                         "actionType": "ajax",
                                                         "args": {
                                                             "api": {
-                                                                "url": "/api/user/res/relation",
+                                                                "url": "/user/api/user/res/relation",
                                                                 "method": "post",
                                                                 "data":{
                                                                     "resId": "${id}",
@@ -466,7 +467,7 @@
                                                 "type": "text",
                                                 "className": "text-center",
                                                 "width": 60,
-                                                "text":"${(index+1)+(INT(pageNo)-1)*pageSize}"
+                                                "text":"${(index+1)+(INT(page)-1)*perPage}"
                                                 
                                             },
                                             {
@@ -574,7 +575,7 @@
             "editable": false,
             "initiallyOpen": true,
             "submitOnChange": true,
-            "source": "get:/api/user/res/tree/all",
+            "source": "get:/user/api/user/res/tree/all",
             "className": "h-full"
         }]
     }

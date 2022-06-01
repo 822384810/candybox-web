@@ -80,7 +80,7 @@ let amisJson =
         ]
     },
     "footer": "<div class=\"p-2 text-center bg-light\">Copyright © 2022 - 2022  <a href=\"https://github.com/822384810\" target=\"_blank\" class=\"link-secondary\">CandyBox</a>. All rights reserved. <a target=\"_blank\" href=\"https://github.com/822384810\" class=\"link-secondary\" rel=\"noopener\">v0.1.0</a></div> ",
-    "api":"get:/api/user/res/menu/user/all"
+    "api":"get:/user/api/user/res/menu/user/all"
 }
 
 </script>

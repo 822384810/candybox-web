@@ -10,7 +10,7 @@
             "syncLocation": false,
             "api": {
                 "method":"post",
-                "url": "/api/core/cbdata/log_login/page?pageNo=${pageNo}&pageSize=${pageSize}",
+                "url": "/user/api/core/cbdata/log_login/page?page=${page}&perPage=${perPage}",
                 "data":{
                     "orderDesc": "loginTime",
                     "like-right-userName": "${userName}",
@@ -18,8 +18,6 @@
                 }
             },
             "perPage": 10,
-            "pageField": "pageNo",
-            "perPageField": "pageSize",
             "columnsTogglable": "auto",
             "mode": "table",
             "columns": [
@@ -29,7 +27,7 @@
                     "type": "text",
                     "align": "center",
                     "width": 60,
-                    "text":"${(index+1)+(INT(pageNo)-1)*pageSize}"
+                    "text":"${(index+1)+(INT(page)-1)*perPage}"
                 },
                 {
                     "type": "text",

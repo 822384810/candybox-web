@@ -10,7 +10,7 @@ let amisJson =
 {
     "type": "page",
     "title": "用户登录",
-    "initApi":"delete:/api/user/token",
+    "initApi":"delete:/user/api/user/token",
     "body":
     [
         {
@@ -83,7 +83,7 @@ let amisJson =
                             "panelClassName": "",
                             "api":
                             {
-                                "url": "/api/user/web/login",
+                                "url": "/user/api/user/web/login",
                                 "method": "POST"
                             },
                             "silentPolling": false,

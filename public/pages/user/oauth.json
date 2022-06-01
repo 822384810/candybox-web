@@ -10,7 +10,7 @@
             "syncLocation": false,
             "api": {
                 "method":"post",
-                "url": "/api/core/cbdata/oauth_client/page?pageNo=${pageNo}&pageSize=${pageSize}",
+                "url": "/user/api/core/cbdata/oauth_client/page?page=${page}&perPage=${perPage}",
                 "data":{
                     "status":"1",
                     "orderAsc": "createTime",
@@ -40,7 +40,7 @@
                             "type": "form",
                             "api": {
                                 "method":"post",
-                                "url":"/api/user/oauth"
+                                "url":"/user/api/user/oauth"
                             },
                             "validateOnChange": true,
                             "body": [
@@ -72,8 +72,6 @@
                 "bulkActions"
             ],
             "perPage": 10,
-            "pageField": "pageNo",
-            "perPageField": "pageSize",
             "columnsTogglable": "auto",
             "mode": "table",
             "columns": [
@@ -83,7 +81,7 @@
                     "type": "text",
                     "align": "center",
                     "width": 60,
-                    "text":"${(index+1)+(INT(pageNo)-1)*pageSize}"
+                    "text":"${(index+1)+(INT(page)-1)*perPage}"
                     
                 },
                 {
@@ -136,7 +134,7 @@
                             "level": "link",
                             "className": "text-danger",
                             "confirmText": "确定要删除？",
-                            "api": "delete:/api/core/cbdata/oauth_client?id=$id"
+                            "api": "delete:/user/api/core/cbdata/oauth_client?id=$id"
                             
                         },
                         {
@@ -148,7 +146,7 @@
                                 "title": "编辑",
                                 "body": {
                                     "type": "form",
-                                    "api": "put:/api/core/cbdata/oauth_client?id=$id",
+                                    "api": "put:/user/api/core/cbdata/oauth_client?id=$id",
                                     "body": [
                                         {
                                             "type": "input-text",
@@ -201,15 +199,13 @@
                                         "syncLocation": false,
                                         "api": {
                                             "method":"get",
-                                            "url": "/api/user/role/relation/user/page?pageNo=${pageNo}&pageSize=${pageSize}&userId=${id}",
+                                            "url": "/user/api/user/role/relation/user/page?page=${page}&perPage=${perPage}&userId=${id}",
                                             "data":{
                                                 "roleName": "${roleName}",
                                                 "roleTag": "${roleTag}"
                                             }
                                         },                                        
                                         "perPage": 10,
-                                        "pageField": "pageNo",
-                                        "perPageField": "pageSize",
                                         "columnsTogglable": "auto",
                                         "mode": "table",
                                         "columns": [
@@ -227,7 +223,7 @@
                                                         "actionType": "ajax",
                                                         "args": {
                                                             "api": {
-                                                                "url": "/api/user/role/relation",
+                                                                "url": "/user/api/user/role/relation",
                                                                 "method": "post",
                                                                 "data":{
                                                                     "userId": "${id}",
@@ -248,7 +244,7 @@
                                                 "type": "text",
                                                 "className": "text-center",
                                                 "width": 60,
-                                                "text":"${(index+1)+(INT(pageNo)-1)*pageSize}"
+                                                "text":"${(index+1)+(INT(page)-1)*perPage}"
                                                 
                                             },
                                             {

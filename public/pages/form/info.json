@@ -1,0 +1,295 @@
+{
+  "type": "page",
+  "title": "表单管理",
+  "body": [
+    {
+      "type": "crud",
+      "syncLocation": false,
+      "api": {
+        "method": "post",
+        "url": "/form/api/core/cbdata/form_info/page"
+      },
+      "columns": [
+        {
+          "name": "index",
+          "label": "序号",
+          "type": "text",
+          "align": "center",
+          "width": 60,
+          "text": "${(index+1)+(INT(page)-1)*perPage}"
+        },
+        {
+          "name": "name",
+          "label": "名称",
+          "align": "center",
+          "type": "text"
+        },
+        {
+          "type": "text",
+          "label": "编码",
+          "align": "center",
+          "name": "code"
+        },
+        {
+          "type": "text",
+          "label": "定义",
+          "align": "center",
+          "toggled": false,
+          "name": "formJson"
+        },
+        {
+          "type": "text",
+          "label": "描述",
+          "align": "center",
+          "name": "descript"
+        },
+        {
+          "type": "datetime",
+          "label": "创建日期",
+          "align": "center",
+          "name": "createTime",
+          "placeholder": "-",
+          "width": 130
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "align": "center",
+          "buttons": [
+            {
+              "type": "button",
+              "label": "删除",
+              "actionType": "ajax",
+              "level": "link",
+              "className": "text-danger",
+              "confirmText": "确定要删除？",
+              "api": "POST:/form/api/core/cbdata/form_info?id=$id"
+            },
+            {
+              "label": "查看",
+              "type": "button",
+              "actionType": "dialog",
+              "level": "link",
+              "dialog": {
+                "title": "查看详情",
+                "body": [
+                  {
+                    "type": "form",
+                    "body": [
+                      {
+                        "name": "name",
+                        "label": "名称",
+                        "type": "static"
+                      },
+                      {
+                        "name": "code",
+                        "label": "编码",
+                        "type": "static"
+                      },
+                      {
+                        "label": "定义",
+                        "name": "formJson",
+                        "type": "static"
+                      },
+                      {
+                        "label": "描述",
+                        "name": "descript",
+                        "type": "static"
+                      },
+                      {
+                        "label": "创建日期",
+                        "name": "createTime",
+                        "type": "static"
+                      }
+                    ]
+                  }
+                ],
+                "type": "dialog",
+                "closeOnEsc": false,
+                "closeOnOutside": false,
+                "showCloseButton": true,
+                "size": "xl"
+              }
+            },
+            {
+              "label": "编辑",
+              "type": "button",
+              "actionType": "dialog",
+              "level": "link",
+              "dialog": {
+                "title": "编辑",
+                "body": [
+                  {
+                    "type": "form",
+                    "api": "put:/form/api/core/cbdata/form_info?id=$id",
+                    "body": [
+                      {
+                        "type": "group",
+                        "body": [
+                          {
+                            "type": "input-text",
+                            "name": "name",
+                            "label": "名称",
+                            "mode": "horizontal",
+                            "horizontal": {
+                              "leftFixed": "normal",
+                              "left": 2,
+                              "right": 10
+                            },
+                            "size": "",
+                            "required": true,
+                            "validations": {
+                              "maxLength": 100
+                            }
+                          },
+                          {
+                            "type": "input-text",
+                            "name": "code",
+                            "label": "编码",
+                            "mode": "horizontal",
+                            "horizontal": {
+                              "leftFixed": "normal",
+                              "left": 6,
+                              "right": 6
+                            },
+                            "required": true,
+                            "validations": {
+                              "maxLength": 50
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "name": "formJson",
+                        "label": "定义",
+                        "type": "textarea",
+                        "minRows": "15",
+                        "language": "json",
+                        "required": true
+                      },
+                      {
+                        "label": "描述",
+                        "name": "descript",
+                        "type": "textarea",
+                        "validations": {
+                          "maxLength": 200
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "type": "dialog",
+                "closeOnEsc": false,
+                "closeOnOutside": false,
+                "showCloseButton": true,
+                "size": "xl"
+              }
+            }
+          ],
+          "placeholder": "-",
+          "width": 110,
+          "fixed": ""
+        }
+      ],
+      "bulkActions": [
+      ],
+      "itemActions": [
+      ],
+      "features": [
+        "delete",
+        "view",
+        "update",
+        "create",
+        "filter"
+      ],
+      "filterColumnCount": 2,
+      "headerToolbar": [
+        {
+          "label": "新增",
+          "type": "button",
+          "actionType": "dialog",
+          "level": "primary",
+          "dialog": {
+            "type": "dialog",
+            "title": "新增",
+            "body": [
+              {
+                "type": "form",
+                "api": "POST:/form/api/core/cbdata/form_info",
+                "body": [
+                  {
+                    "type": "group",
+                    "body": [
+                      {
+                        "type": "input-text",
+                        "name": "name",
+                        "label": "名称",
+                        "mode": "horizontal",
+                        "horizontal": {
+                          "leftFixed": "normal",
+                          "left": 2,
+                          "right": 10
+                        },
+                        "size": "",
+                        "required": true,
+                        "validations": {
+                          "maxLength": 100
+                        }
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "code",
+                        "label": "编码",
+                        "mode": "horizontal",
+                        "horizontal": {
+                          "leftFixed": "normal",
+                          "left": 6,
+                          "right": 6
+                        },
+                        "required": true,
+                        "validations": {
+                          "maxLength": 50
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "textarea",
+                    "name": "formJson",
+                    "label": "定义",
+                    "minRows": "15",
+                    "language": "json",
+                    "required": true
+                  },
+                  {
+                    "type": "textarea",
+                    "label": "描述",
+                    "name": "descript",
+                    "validations": {
+                      "maxLength": 200
+                    }
+                  }
+                ]
+              }
+            ],
+            "closeOnEsc": false,
+            "closeOnOutside": false,
+            "showCloseButton": true,
+            "size": "xl"
+          },
+          "perPageAvailable": [
+            10
+          ]
+        },
+        "bulkActions"
+      ],
+      "id": "u:9a99db14a6f2",
+      "placeholder": "-",
+      "perPageAvailable": [
+        10
+      ],
+      "messages": {
+      }
+    }
+  ]
+}
