@@ -17,10 +17,9 @@
             "target": "resAside",
             "api": {
                 "method":"post",
-                "url": "/user/api/core/cbdata/user_res/page?page=${page}&perPage=${perPage}",
+                "url": "/user/api/core/cbdata/user_res/valid/page?page=${page}&perPage=${perPage}",
                 "data":{
                     "parentId":"${resTree}",
-                    "status":"1",
                     "orderAsc": "sort",
                     "like-right-name": "${name}",
                     "like-right-tag": "${tag}"

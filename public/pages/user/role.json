@@ -10,9 +10,8 @@
             "syncLocation": false,
             "api": {
                 "method":"post",
-                "url": "/user/api/core/cbdata/user_role/page?page=${page}&perPage=${perPage}",
+                "url": "/user/api/core/cbdata/user_role/valid/page?page=${page}&perPage=${perPage}",
                 "data":{
-                    "status":"1",
                     "orderAsc": "createTime",
                     "like-right-name": "${name}",
                     "like-right-tag": "${tag}"

@@ -16,10 +16,9 @@
             "syncLocation": false,
             "api": {
                 "method":"post",
-                "url": "/user/api/user/user/page?page=${page}&perPage=${perPage}",
+                "url": "/user/api/user/user/valid/page?page=${page}&perPage=${perPage}",
                 "data":{
                     "deptId":"${deptTree.id}",
-                    "status":"1",
                     "orderAsc": "createTime",
                     "like-right-name": "${name}",
                     "like-right-mobilePhone": "${mobilePhone}",

@@ -9,9 +9,8 @@
       "columnsTogglable": "auto",
       "api": {
         "method": "post",
-        "url": "/form/api/core/cbdata/form_info/user/page",
+        "url": "/form/api/core/cbdata/form_info/user/valid/page",
         "data":{
-          "status":"1",
           "orderDesc": "createTime",
           "like-right-name": "${name}",
           "like-right-code": "${code}",

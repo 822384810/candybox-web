@@ -10,9 +10,8 @@
             "syncLocation": false,
             "api": {
                 "method":"post",
-                "url": "/user/api/core/cbdata/oauth_client/page?page=${page}&perPage=${perPage}",
+                "url": "/user/api/core/cbdata/oauth_client/valid/page?page=${page}&perPage=${perPage}",
                 "data":{
-                    "status":"1",
                     "orderAsc": "createTime",
                     "like-right-name": "${name}",
                     "like-right-tag": "${tag}"
