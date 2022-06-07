@@ -14,6 +14,8 @@ import {
   transformerVariantGroup,
 } from 'unocss'
 
+// import monacoEditorPlugin from "vite-plugin-monaco-editor"
+
 const pathSrc = path.resolve(__dirname, 'src')
 
 // https://vitejs.dev/config/
@@ -61,6 +63,7 @@ export default defineConfig({
         transformerVariantGroup(),
       ]
     }),
+    // monacoEditorPlugin()
   ],
   server: {
     proxy: {

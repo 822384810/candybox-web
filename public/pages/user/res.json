@@ -176,7 +176,7 @@
                     "type": "text",
                     "label": "标签",
                     "name": "tag",
-                   "align": "center",
+                    "align": "center",
                     "searchable": {
                         "type": "input-text",
                         "name": "tag",
@@ -201,7 +201,8 @@
                     "type": "text",
                     "label": "描述",
                     "name": "descript",
-                    "align": "center"
+                    "align": "center",
+                    "toggled": true
                 },
                 {
                     "type": "static",

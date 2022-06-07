@@ -5,9 +5,19 @@
     {
       "type": "crud",
       "syncLocation": false,
+      "autoGenerateFilter": true,
+      "columnsTogglable": "auto",
       "api": {
         "method": "post",
-        "url": "/form/api/core/cbdata/form_info/page"
+        "url": "/form/api/core/cbdata/form_info/user/page",
+        "data":{
+          "status":"1",
+          "orderDesc": "createTime",
+          "like-right-name": "${name}",
+          "like-right-code": "${code}",
+          "page": "${page}",
+          "perPage":"${perPage}"
+      }
       },
       "columns": [
         {
@@ -19,16 +29,35 @@
           "text": "${(index+1)+(INT(page)-1)*perPage}"
         },
         {
+          "name": "id",
+          "label": "表单ID",
+          "type": "text",
+          "align": "center",
+          "copyable": true
+        },
+        {
           "name": "name",
           "label": "名称",
           "align": "center",
-          "type": "text"
+          "type": "text",
+          "searchable": {
+            "type": "input-text",
+            "name": "name",
+            "label": "名称",
+            "placeholder": ""
+        }
         },
         {
           "type": "text",
           "label": "编码",
           "align": "center",
-          "name": "code"
+          "name": "code",
+          "searchable": {
+            "type": "input-text",
+            "name": "code",
+            "label": "编码",
+            "placeholder": ""
+        }
         },
         {
           "type": "text",
@@ -49,7 +78,7 @@
           "align": "center",
           "name": "createTime",
           "placeholder": "-",
-          "width": 130
+          "width": 170
         },
         {
           "type": "operation",
@@ -63,52 +92,36 @@
               "level": "link",
               "className": "text-danger",
               "confirmText": "确定要删除？",
-              "api": "POST:/form/api/core/cbdata/form_info?id=$id"
+              "api": "delete:/form/api/core/cbdata/form_info/user?id=$id"
             },
             {
-              "label": "查看",
               "type": "button",
-              "actionType": "dialog",
+              "label": "预览",
+              "actionType": "drawer",
               "level": "link",
-              "dialog": {
-                "title": "查看详情",
-                "body": [
-                  {
-                    "type": "form",
-                    "body": [
-                      {
-                        "name": "name",
-                        "label": "名称",
-                        "type": "static"
-                      },
-                      {
-                        "name": "code",
-                        "label": "编码",
-                        "type": "static"
-                      },
-                      {
-                        "label": "定义",
-                        "name": "formJson",
-                        "type": "static"
-                      },
-                      {
-                        "label": "描述",
-                        "name": "descript",
-                        "type": "static"
-                      },
-                      {
-                        "label": "创建日期",
-                        "name": "createTime",
-                        "type": "static"
-                      }
-                    ]
-                  }
-                ],
-                "type": "dialog",
-                "closeOnEsc": false,
+              "drawer": {
+                "position": "right",
+                "title": "预览",
+                "resizable": true,
+                "size": "xl",
+                "closeOnEsc": true,
                 "closeOnOutside": false,
                 "showCloseButton": true,
-                "size": "xl"
+                "actions": [
+                  {
+                    "type": "button",
+                    "label": "关闭",
+                    "level": "primary",
+                    "actionType": "close"
+                  }
+                ],
+                "body": [
+                  {
+                    "type": "service",
+                    "className": "m-t",
+                    "schemaApi": "get:/form/api/form/info/user/id?id=${id}"
+                  }
+                ]
               }
             },
             {
@@ -121,7 +134,7 @@
                 "body": [
                   {
                     "type": "form",
-                    "api": "put:/form/api/core/cbdata/form_info?id=$id",
+                    "api": "put:/form/api/core/cbdata/form_info/user?id=$id",
                     "body": [
                       {
                         "type": "group",
@@ -154,7 +167,8 @@
                             },
                             "required": true,
                             "validations": {
-                              "maxLength": 50
+                              "maxLength": 50,
+                              "isAlphanumeric": true
                             }
                           }
                         ]
@@ -248,7 +262,8 @@
                         },
                         "required": true,
                         "validations": {
-                          "maxLength": 50
+                          "maxLength": 50,
+                          "isAlphanumeric": true
                         }
                       }
                     ]

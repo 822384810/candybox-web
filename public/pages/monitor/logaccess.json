@@ -87,7 +87,7 @@
                     "label": "操作时间",
                     "name": "createTime",
                     "align": "center",
-                    "width": "150px",
+                    "width": "170px",
                     "searchable": {
                         "type": "input-date",
                         "name": "createTime",

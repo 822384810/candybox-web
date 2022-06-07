@@ -70,7 +70,7 @@
                     "type": "datetime",
                     "label": "登录时间",
                     "name": "loginTime",
-                    "width": "150px",
+                    "width": "170px",
                     "align": "center",
                     "searchable": {
                         "type": "input-date",

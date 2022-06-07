@@ -1,0 +1,687 @@
+{
+    "type": "page",
+    "title": "表单管理",
+    "body": [
+      {
+        "type": "crud",
+        "syncLocation": false,
+        "autoGenerateFilter": true,
+        "api": {
+          "method": "post",
+          "url": "/form/api/core/cbdata/wf_info/user/page",
+          "data": {
+            "status": 1,
+            "orderDesc": "createTime",
+            "page": "${page}",
+            "perPage": "${perPage}",
+            "like-right-name": "${name}"
+          }
+        },
+        "columns": [
+          {
+            "name": "id",
+            "label": "id",
+            "type": "text",
+            "hidden": true
+          },
+          {
+            "name": "index",
+            "label": "序号",
+            "type": "text",
+            "placeholder": "-",
+            "width": 60,
+            "align": "center",
+            "text": "${(index+1)+(INT(page)-1)*perPage}"
+          },
+          {
+            "name": "name",
+            "label": "名称",
+            "type": "text",
+            "align": "center",
+            "searchable": {
+              "type": "input-text",
+              "name": "name",
+              "label": "名称",
+              "placeholder": ""
+            }
+          },
+          {
+            "type": "text",
+            "label": "描述",
+            "name": "descript",
+            "align": "center"
+          },
+          {
+            "type": "datetime",
+            "label": "创建时间",
+            "name": "createTime",
+            "placeholder": "-",
+            "width": 170,
+            "align": "center"
+          },
+          {
+            "type": "operation",
+            "label": "操作",
+            "buttons": [
+              {
+                "type": "button",
+                "label": "删除",
+                "actionType": "ajax",
+                "level": "link",
+                "className": "text-danger",
+                "confirmText": "确定要删除？",
+                "api": "delete:/form/api/core/cbdata/wf_info/user?id=${id}"
+              },
+              {
+                "label": "查看",
+                "type": "button",
+                "actionType": "dialog",
+                "level": "link",
+                "dialog": {
+                  "title": "查看详情",
+                  "body": [
+                    {
+                      "type": "form",
+                      "body": [
+                        {
+                          "name": "name",
+                          "label": "名称",
+                          "type": "static"
+                        },
+                        {
+                          "label": "描述",
+                          "name": "descript",
+                          "type": "static"
+                        },
+                        {
+                          "label": "创建时间",
+                          "name": "createTime",
+                          "type": "static"
+                        }
+                      ]
+                    }
+                  ],
+                  "type": "dialog",
+                  "closeOnEsc": false,
+                  "closeOnOutside": false,
+                  "showCloseButton": true,
+                  "size": "md"
+                }
+              },
+              {
+                "label": "编辑",
+                "type": "button",
+                "actionType": "dialog",
+                "level": "link",
+                "dialog": {
+                  "title": "编辑",
+                  "body": [
+                    {
+                      "type": "form",
+                      "api": "put:/form/api/core/cbdata/wf_info/user?id=${id}",
+                      "body": [
+                        {
+                          "name": "name",
+                          "label": "名称",
+                          "type": "input-text",
+                          "required": true,
+                          "validations": {
+                            "maxLength": 100
+                          }
+                        },
+                        {
+                          "label": "描述",
+                          "name": "descript",
+                          "type": "textarea",
+                          "minRows": 3,
+                          "maxRows": 20,
+                          "minLength": 0,
+                          "maxLength": 200,
+                          "showCounter": true
+                        }
+                      ]
+                    }
+                  ],
+                  "type": "dialog",
+                  "closeOnEsc": false,
+                  "closeOnOutside": false,
+                  "showCloseButton": true,
+                  "size": "md"
+                }
+              },
+              {
+                "label": "活动管理",
+                "type": "button",
+                "actionType": "drawer",
+                "level": "link",
+                "drawer": {
+                  "type": "drawer",
+                  "title": "活动管理",
+                  "data": {
+                    "wfId": "${id}",
+                    "id": "",
+                    "name": ""
+                  },
+                  "body": [
+                    {
+                      "type": "crud",
+                      "columns": [
+                        {
+                          "label": "wfId",
+                          "name": "wfId",
+                          "type": "text",
+                          "hidden": true
+                        },
+                        {
+                          "label": "Id",
+                          "name": "id",
+                          "type": "text",
+                          "hidden": true
+                        },
+                        {
+                          "type": "text",
+                          "label": "名称",
+                          "name": "name",
+                          "align": "center"
+                        },
+                        {
+                          "label": "活动序号",
+                          "name": "actNum",
+                          "type": "text",
+                          "align": "center"
+                        },
+                        {
+                          "type": "mapping",
+                          "label": "执行人类型",
+                          "name": "actorType",
+                          "align": "center",
+                          "map": {
+                            "1": "指定人员",
+                            "2": "指定单位（1人执行）",
+                            "3": "指定单位（多人执行）",
+                            "4": "指定角色（1人执行）",
+                            "5": "指定角色（多人执行）"
+                          }
+                        },
+                        {
+                          "type": "mapping",
+                          "label": "完成条件",
+                          "name": "finCondition",
+                          "align": "center",
+                          "map": {
+                            "1": "人数",
+                            "2": "百分比"
+                          }
+                        },
+                        {
+                          "type": "operation",
+                          "label": "操作",
+                          "align": "center",
+                          "buttons": [
+                            {
+                              "type": "button",
+                              "label": "删除",
+                              "actionType": "ajax",
+                              "level": "link",
+                              "className": "text-danger",
+                              "confirmText": "确定要删除？",
+                              "api": "delete:/form/api/core/cbdata/wf_act/user?id=${id}"
+                            },
+                            {
+                              "label": "编辑",
+                              "type": "button",
+                              "actionType": "dialog",
+                              "level": "link",
+                              "dialog": {
+                                "title": "编辑",
+                                "body": {
+                                  "type": "form",
+                                  "body": [
+                                    {
+                                      "type": "input-text",
+                                      "name": "wfId",
+                                      "label": "wfId",
+                                      "hidden": true
+                                    },
+                                    {
+                                      "type": "input-text",
+                                      "name": "name",
+                                      "label": "名称",
+                                      "required": true
+                                    },
+                                    {
+                                      "type": "input-text",
+                                      "name": "actNum",
+                                      "label": "活动序号",
+                                      "required": true,
+                                      "validations": {
+                                        "isInt": true
+                                      },
+                                      "description": "1-1000之间的整数，须包含序号为1的活动，且不能重复"
+                                    },
+                                    {
+                                      "type": "select",
+                                      "name": "formId",
+                                      "label": "表单",
+                                      "required": true,
+                                      "source": "/form/api/form/info/user/list/form/select",
+                                      "searchable": true
+                                    },
+                                    {
+                                      "type": "container",
+                                      "visibleOn": "data.actNum==1",
+                                      "body": [
+                                        {
+                                          "type": "select",
+                                          "name": "actorRole",
+                                          "label": "执行角色",
+                                          "source": "/user/api/user/role/list/form/select",
+                                          "searchable": true
+                                        },
+                                        {
+                                          "type": "hidden",
+                                          "name": "actorType",
+                                          "value": "5"
+                                        },
+                                        {
+                                          "type": "hidden",
+                                          "name": "finCondition",
+                                          "value": "1"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "container",
+                                      "visibleOn": "data.actNum>1",
+                                      "body": [
+                                        {
+                                          "type": "select",
+                                          "name": "actorType",
+                                          "label": "执行人类型",
+                                          "options": [
+                                            {
+                                              "label": "指定人员",
+                                              "value": "1"
+                                            },
+                                            {
+                                              "label": "指定单位（1人执行）",
+                                              "value": "2"
+                                            },
+                                            {
+                                              "label": "指定单位（多人执行）",
+                                              "value": "3"
+                                            },
+                                            {
+                                              "label": "指定角色（1人执行）",
+                                              "value": "4"
+                                            },
+                                            {
+                                              "label": "指定角色（多人执行）",
+                                              "value": "5"
+                                            }
+                                          ],
+                                          "required": true,
+                                          "value": "5"
+                                        },
+                                        {
+                                          "type": "select",
+                                          "name": "actorUser",
+                                          "label": "执行人",
+                                          "visibleOn": "data.actorType==1",
+                                          "source": "/user/api/user/user/list/form/select",
+                                          "searchable": true,
+                                          "multiple": true
+                                        },
+                                        {
+                                          "type": "select",
+                                          "name": "actorDept",
+                                          "label": "执行单位",
+                                          "visibleOn": "data.actorType==2||data.actorType==3",
+                                          "source": "/user/api/user/dept/list/form/select",
+                                          "searchable": true
+                                        },
+                                        {
+                                          "type": "select",
+                                          "name": "actorRole",
+                                          "label": "执行角色",
+                                          "source": "/user/api/user/role/list/form/select",
+                                          "searchable": true,
+                                          "visibleOn": "data.actorType==4||data.actorType==5"
+                                        },
+                                        {
+                                          "type": "list-select",
+                                          "label": "完成条件",
+                                          "name": "finCondition",
+                                          "value": "1",
+                                          "options": [
+                                            {
+                                              "label": "人数",
+                                              "value": "1"
+                                            },
+                                            {
+                                              "label": "比例",
+                                              "value": "2"
+                                            }
+                                          ],
+                                          "id": "u:9246a81444e7",
+                                          "required": true
+                                        },
+                                        {
+                                          "type": "input-text",
+                                          "label": "通过人数",
+                                          "name": "finNumber",
+                                          "value": "1",
+                                          "visibleOn": "data.finCondition==1",
+                                          "validations": {
+                                            "isInt": true
+                                          }
+                                        },
+                                        {
+                                          "type": "input-text",
+                                          "label": "通过比例%",
+                                          "name": "finPercent",
+                                          "value": "100",
+                                          "visibleOn": "data.finCondition==2",
+                                          "id": "u:2afe609043d6",
+                                          "description": "1-100之间的整数",
+                                          "validations": {
+                                            "isInt": true
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "api": "put:/form/api/core/cbdata/wf_act/user?id=${id}"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "id": "u:df55c9d894f6",
+                      "syncLocation": false,
+                      "api": {
+                        "method": "post",
+                        "url": "/form/api/core/cbdata/wf_act/user/list",
+                        "data": {
+                          "wfId": "${wfId}",
+                          "orderAsc": "actNum",
+                          "status": 1
+                        }
+                      },
+                      "bulkActions": [
+                      ],
+                      "itemActions": [
+                      ],
+                      "features": [
+                        "delete",
+                        "view",
+                        "update",
+                        "create"
+                      ],
+                      "headerToolbar": [
+                        {
+                          "label": "新增",
+                          "type": "button",
+                          "actionType": "dialog",
+                          "level": "primary",
+                          "dialog": {
+                            "title": "新增",
+                            "body": [
+                              {
+                                "type": "form",
+                                "api": "POST:/form/api/core/cbdata/wf_act",
+                                "body": [
+                                  {
+                                    "type": "input-text",
+                                    "name": "wfId",
+                                    "label": "wfId",
+                                    "hidden": true
+                                  },
+                                  {
+                                    "type": "input-text",
+                                    "name": "name",
+                                    "label": "名称",
+                                    "required": true
+                                  },
+                                  {
+                                    "type": "input-text",
+                                    "name": "actNum",
+                                    "label": "活动序号",
+                                    "required": true,
+                                    "validations": {
+                                      "isInt": true
+                                    },
+                                    "description": "1-1000之间的整数，须包含序号为1的活动，且不能重复"
+                                  },
+                                  {
+                                    "type": "select",
+                                    "name": "formId",
+                                    "label": "表单",
+                                    "required": true,
+                                    "source": "/form/api/form/info/user/list/form/select",
+                                    "searchable": true
+                                  },
+                                  {
+                                    "type": "container",
+                                    "visibleOn": "data.actNum==1",
+                                    "body": [
+                                      {
+                                        "type": "select",
+                                        "name": "actorRole",
+                                        "label": "执行角色",
+                                        "source": "/user/api/user/role/list/form/select",
+                                        "searchable": true
+                                      },
+                                      {
+                                        "type": "hidden",
+                                        "name": "actorType",
+                                        "value": "5"
+                                      },
+                                      {
+                                        "type": "hidden",
+                                        "name": "finCondition",
+                                        "value": "1"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "container",
+                                    "visibleOn": "data.actNum>1",
+                                    "body": [
+                                      {
+                                        "type": "select",
+                                        "name": "actorType",
+                                        "label": "执行人类型",
+                                        "options": [
+                                          {
+                                            "label": "指定人员",
+                                            "value": "1"
+                                          },
+                                          {
+                                            "label": "指定单位（1人执行）",
+                                            "value": "2"
+                                          },
+                                          {
+                                            "label": "指定单位（多人执行）",
+                                            "value": "3"
+                                          },
+                                          {
+                                            "label": "指定角色（1人执行）",
+                                            "value": "4"
+                                          },
+                                          {
+                                            "label": "指定角色（多人执行）",
+                                            "value": "5"
+                                          }
+                                        ],
+                                        "required": true,
+                                        "value": "5"
+                                      },
+                                      {
+                                        "type": "select",
+                                        "name": "actorUser",
+                                        "label": "执行人",
+                                        "visibleOn": "data.actorType==1",
+                                        "source": "/user/api/user/user/list/form/select",
+                                        "searchable": true,
+                                        "multiple": true
+                                      },
+                                      {
+                                        "type": "select",
+                                        "name": "actorDept",
+                                        "label": "执行单位",
+                                        "visibleOn": "data.actorType==2||data.actorType==3",
+                                        "source": "/user/api/user/dept/list/form/select",
+                                        "searchable": true
+                                      },
+                                      {
+                                        "type": "select",
+                                        "name": "actorRole",
+                                        "label": "执行角色",
+                                        "source": "/user/api/user/role/list/form/select",
+                                        "searchable": true,
+                                        "visibleOn": "data.actorType==4||data.actorType==5"
+                                      },
+                                      {
+                                        "type": "list-select",
+                                        "label": "完成条件",
+                                        "name": "finCondition",
+                                        "value": "1",
+                                        "options": [
+                                          {
+                                            "label": "人数",
+                                            "value": "1"
+                                          },
+                                          {
+                                            "label": "比例",
+                                            "value": "2"
+                                          }
+                                        ],
+                                        "id": "u:9246a81444e7",
+                                        "required": true
+                                      },
+                                      {
+                                        "type": "input-text",
+                                        "label": "通过人数",
+                                        "name": "finNumber",
+                                        "value": "1",
+                                        "visibleOn": "data.finCondition==1",
+                                        "validations": {
+                                          "isInt": true
+                                        }
+                                      },
+                                      {
+                                        "type": "input-text",
+                                        "label": "通过比例%",
+                                        "name": "finPercent",
+                                        "value": "100",
+                                        "visibleOn": "data.finCondition==2",
+                                        "id": "u:2afe609043d6",
+                                        "description": "1-100之间的整数",
+                                        "validations": {
+                                          "isInt": true
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ],
+                            "type": "dialog",
+                            "closeOnEsc": false,
+                            "closeOnOutside": false,
+                            "showCloseButton": true,
+                            "size": ""
+                          }
+                        },
+                        "bulkActions"
+                      ]
+                    }
+                  ],
+                  "position": "right",
+                  "size": "lg",
+                  "closeOnEsc": true,
+                  "resizable": true,
+                  "actions": [
+                    {
+                      "type": "button",
+                      "label": "关闭",
+                      "level": "primary",
+                      "actionType": "close"
+                    }
+                  ]
+                }
+              }
+            ],
+            "placeholder": "-",
+            "width": 180,
+            "align": "center"
+          }
+        ],
+        "bulkActions": [
+        ],
+        "itemActions": [
+        ],
+        "features": [
+          "create",
+          "update",
+          "view",
+          "delete"
+        ],
+        "headerToolbar": [
+          {
+            "label": "新增",
+            "type": "button",
+            "actionType": "dialog",
+            "level": "primary",
+            "dialog": {
+              "type": "dialog",
+              "title": "新增",
+              "body": [
+                {
+                  "type": "form",
+                  "api": {
+                    "method": "post",
+                    "url": "/form/api/core/cbdata/wf_info"
+                  },
+                  "body": [
+                    {
+                      "type": "input-text",
+                      "name": "name",
+                      "label": "名称",
+                      "required": true,
+                      "validations": {
+                        "maxLength": 100
+                      }
+                    },
+                    {
+                      "type": "textarea",
+                      "name": "descript",
+                      "label": "描述",
+                      "minRows": 3,
+                      "maxRows": 20,
+                      "minLength": 0,
+                      "maxLength": 200,
+                      "showCounter": true
+                    }
+                  ]
+                }
+              ],
+              "closeOnEsc": false,
+              "closeOnOutside": false,
+              "showCloseButton": true,
+              "size": "md"
+            }
+          },
+          "bulkActions"
+        ],
+        "id": "u:9b8e2892855b",
+        "perPageAvailable": [
+          10
+        ],
+        "messages": {
+        }
+      }
+    ]
+  }

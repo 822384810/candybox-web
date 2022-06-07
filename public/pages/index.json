@@ -1,0 +1,131 @@
+{
+    "type": "page",
+    "body": [
+      {
+        "type": "grid",
+        "columns": [
+          {
+            "body": [
+            ]
+          }
+        ]
+      },
+      {
+        "type": "grid",
+        "columns": [
+          {
+            "body": [
+              {
+                "type": "crud",
+                "api": "/amis/api/mock2/crud/users",
+                "syncLocation": false,
+                "mode": "cards",
+                "defaultParams": {
+                  "perPage": 6
+                },
+                "switchPerPage": false,
+                "placeholder": "无数据",
+                "columnsCount": 6,
+                "card": {
+                  "header": {
+                    "title": "标题",
+                    "avatar": "${avatar | raw}",
+                    "avatarClassName": "pull-left thumb-md avatar b-3x m-r"
+                  }
+                },
+                "title": "工作台"
+              }
+            ]
+          }
+        ],
+        "id": "u:4149c442fb74"
+      },
+      {
+        "type": "grid",
+        "columns": [
+          {
+            "body": [
+            ]
+          },
+          {
+            "body": [
+            ]
+          }
+        ]
+      },
+      {
+        "type": "grid",
+        "columns": [
+        ]
+      },
+      {
+        "type": "grid",
+        "columns": [
+        ]
+      },
+      {
+        "type": "grid",
+        "columns": [
+          {
+            "body": [
+              {
+                "type": "crud",
+                "syncLocation": false,
+                "api": "",
+                "bulkActions": [
+                ],
+                "itemActions": [
+                ],
+                "id": "u:0c863f1030f4",
+                "placeholder": "-",
+                "perPageAvailable": [
+                  10
+                ],
+                "messages": {
+                },
+                "card": {
+                  "type": "card",
+                  "header": {
+                    "title": "标题",
+                    "subTitle": "副标题"
+                  },
+                  "body": [
+                    {
+                      "name": "a",
+                      "label": "A"
+                    },
+                    {
+                      "name": "b",
+                      "label": "B"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "label": "详情",
+                      "type": "button"
+                    }
+                  ]
+                },
+                "mode": "cards",
+                "title": "工作台测试"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "grid",
+        "columns": [
+          {
+            "body": [
+            ]
+          }
+        ]
+      },
+      {
+        "type": "grid",
+        "columns": [
+        ]
+      }
+    ]
+  }
